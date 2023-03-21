@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "544450645227",
+    "project_id": "sw4-udem",
+    "storage_bucket": "sw4-udem.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:544450645227:android:8adeb6073ae4b552c682ae",
+        "android_client_info": {
+          "package_name": "com.example.theocagame"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "544450645227-suahiu86dnh5tn6rv2pr41fttmrc8foa.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC0i9t1X9ape9fRyzeJL7rYG86wOLneMQw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "544450645227-jb70prprebju4qmbl84jukr49hkb6nuv.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
