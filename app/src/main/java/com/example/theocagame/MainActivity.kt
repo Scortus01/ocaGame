@@ -14,17 +14,31 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
     private lateinit var boardView: BoardView
-    val db = Firebase.firestore
+    private val db = Firebase.firestore
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        getData()
+        getTableSize()
     }
 
-    private fun getData() {
+    private fun getTableSize(){
+        db.collection("tableSize").document("default").addSnapshotListener { value, error ->
+            if (error == null){
+                val result = value?.get("size")
+                if (result != null){
+                    getData(result.toString().toInt())
+                }
+            }else{
+                Toast.makeText(this, "Ha ocurrido un error, tamaño por defecto", Toast.LENGTH_SHORT).show()
+                getData(7)
+            }
+        }
+    }
+
+    private fun getData(tableSize: Int) {
         db.collection("questions").document("level").collection("easy").get()
             .addOnSuccessListener { result ->
                 val listData = mutableListOf<QuestionModel>()
@@ -32,7 +46,7 @@ class MainActivity : AppCompatActivity() {
                     val document = currentService.toObject(QuestionModel::class.java)
                     listData.add(document)
                 }
-                drawTable()
+                drawTable(tableSize)
                 moveDice(listData)
             }.addOnFailureListener {
                 Toast.makeText(this, "Error al cargar los datos", Toast.LENGTH_SHORT).show()
@@ -45,7 +59,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun drawTable() {
+    private fun drawTable(tableSize: Int) {
         boardView = binding.boardView
         boardView.setLayerType(View.LAYER_TYPE_SOFTWARE, null)
 
@@ -53,5 +67,7 @@ class MainActivity : AppCompatActivity() {
         paint.color = Color.RED
         paint.style = Paint.Style.STROKE
         paint.strokeWidth = 2f
+
+        boardView.setSize(tableSize, binding)
     }
 }
